@@ -1,0 +1,67 @@
+{
+  "name": "apimarket-place-edge",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-04-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+
+  "vars": {
+    "APP_ENV": "local",
+    "API_MARKET_WEB_ORIGIN": "https://apimarket.place"
+  },
+
+  "kv_namespaces": [
+    {
+      "binding": "KEY_CACHE",
+      "id": "adcf2c34aa5b4685bc33de7969818544",
+      "preview_id": "<local-preview-kv-namespace-id>"
+    }
+  ],
+
+  "queues": {
+    "producers": [
+      {
+        "binding": "USAGE_QUEUE",
+        "queue": "apimarket-usage-events"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "apimarket-usage-events",
+        "max_batch_size": 100,
+        "max_batch_timeout": 5,
+        "max_retries": 3,
+        "dead_letter_queue": "apimarket-usage-events-dlq"
+      }
+    ]
+  },
+
+  "env": {
+    "staging": {
+      "vars": {
+        "APP_ENV": "staging",
+        "API_MARKET_WEB_ORIGIN": "https://staging.apimarket.place"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "KEY_CACHE",
+          "id": "<staging-kv-namespace-id>"
+        }
+      ]
+    },
+    "production": {
+      "vars": {
+        "APP_ENV": "production",
+        "API_MARKET_WEB_ORIGIN": "https://apimarket.place"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "KEY_CACHE",
+          "id": "<prod-kv-namespace-id>"
+        }
+      ]
+    }
+  }
+}
