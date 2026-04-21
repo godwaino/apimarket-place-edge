@@ -7,6 +7,8 @@ export type Bindings = {
   KEY_CACHE: KVNamespace;
   USAGE_QUEUE: Queue;
 
+  INTERNAL_SERVICE_SECRET: string;
+
   // Reserved for later billing/encryption phases.
   STRIPE_SECRET_KEY?: string;
   STRIPE_WEBHOOK_SECRET?: string;

@@ -287,9 +287,11 @@ app.all("/:apiSlug/*", async (c) => {
   const t0 = Date.now();
 
   try {
+    const forwardHeaders = buildForwardHeaders(c.req.raw.headers);
+    forwardHeaders.set("x-internal-service-key", c.env.INTERNAL_SERVICE_SECRET);
     upstreamRes = await fetch(upstreamUrl, {
       method,
-      headers: buildForwardHeaders(c.req.raw.headers),
+      headers: forwardHeaders,
       body: hasBody ? c.req.raw.body : undefined,
       signal: controller.signal,
     });
