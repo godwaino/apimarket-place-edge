@@ -16,6 +16,7 @@ Set per environment:
 
 ```bash
 pnpm --filter @apimarket-place/edge wrangler secret put DATABASE_URL
+pnpm --filter @apimarket-place/edge wrangler secret put INTERNAL_SERVICE_SECRET
 ```
 
 Optional (reserved for upcoming billing/encryption phases):
